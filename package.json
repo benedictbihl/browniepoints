@@ -1,0 +1,16 @@
+{
+  "name": "browniepoints",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": []
+  },
+  "dependencies": {
+    "firebase": "^7.6.1",
+    "prettier": "^1.19.1",
+    "react-native": "0.61.5",
+    "reactfire": "^2.0.0-canary.1fce6b9"
+  }
+}
