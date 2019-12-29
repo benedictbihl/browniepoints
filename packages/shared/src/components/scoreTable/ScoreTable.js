@@ -1,57 +1,68 @@
-import React from 'react';
-
-import {
-  Table,
-  TableHead,
-  TableBody,
-  TableCell,
-  TableRow,
-  TableContainer,
-  Paper,
-  makeStyles,
-  Container,
-} from '@material-ui/core';
+import React from "react";
+import Header from "shared/src/components/header/Header";
+import ListElementContainer from "shared/src/components/listElement/ListElementContainer";
+import AddPersonContainer from "shared/src/components/addPerson/AddPersonContainer";
+import { Paper, makeStyles, Container } from "@material-ui/core";
 
 function createData(name, score) {
-  return {name, score};
+  return { name, score };
 }
 
 const useStyles = makeStyles(theme => ({
-  table: {
-    minWidth: 450,
+  paper: {
+    display: "flex",
+    flexDirection: "column",
+    height: "100vh",
+    maxWidth: "51rem",
+    margin: "0 auto"
   },
   tableContainer: {
-    margin: theme.spacing(4, 0),
+    margin: theme.spacing(4, 0)
   },
+  list: {
+    flex: "1",
+    overflowY: "auto"
+  },
+  footer: {
+    backgroundColor: theme.palette.secondary.main
+  }
 }));
+
+const trophies = index => {
+  switch (index) {
+    case 0:
+      return "🥇";
+    case 1:
+      return "🥈";
+    case 2:
+      return "🥉";
+
+    default:
+      return index + 1 + ".";
+  }
+};
 
 const ScoreTable = props => {
   const classes = useStyles();
   const rows = [];
   props.scores.map(entry => rows.push(createData(entry.name, entry.score)));
   return (
-    <Container maxWidth="md">
-      <TableContainer className={classes.tableContainer} component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Brownie points</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map(row => (
-              <TableRow key={row.name}>
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.score}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Container>
+    <Paper className={classes.paper}>
+      <Header />
+      <Container className={classes.list} maxWidth="md">
+        {rows.map((row, index) => (
+          <ListElementContainer
+            index={trophies(index)}
+            name={row.name}
+            score={row.score}
+            variant="h3"
+          />
+        ))}
+      </Container>
+      <Container className={classes.footer} maxWidth="md">
+        <AddPersonContainer />
+      </Container>
+    </Paper>
   );
 };
 
