@@ -1,13 +1,15 @@
 import React, { Suspense } from "react";
 import "./App.css";
-import ScoreTableContainer from "shared/src/components/scoreTable/ScoreTableContainer";
+import MainViewContainer from "shared/src/views/mainView/MainViewContainer";
 import AddPointsSkeleton from "shared/src/components/addPerson/AddPointsSkeleton";
+import "firebase/firestore";
+
 function App() {
   return (
     <>
       <div className="App">
         <Suspense fallback={<AddPointsSkeleton />}>
-          <ScoreTableContainer />
+          <MainViewContainer />
         </Suspense>
       </div>
     </>

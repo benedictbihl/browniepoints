@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
-  TextField,
   makeStyles,
   IconButton,
   Button,
@@ -37,51 +36,46 @@ const useStyles = makeStyles(theme => ({
     flexWrap: "wrap",
     margin: theme.spacing(4, 0),
     [theme.breakpoints.down("sm")]: {
-      margin: theme.spacing(2, 0),
+      margin: theme.spacing(2, 0, 0, 0),
       justifyContent: "center"
     }
   }
 }));
 
 const AddPerson = props => {
-  const [input, setInput] = useState("Add someone");
+  const [input, setInput] = useState("");
   const [score, setScore] = useState(0);
   const classes = useStyles();
-
-  function getId(input) {
-    if (
-      props.tableEntries.filter(entry => entry.data().name === input).length > 0
-    )
-      return props.tableEntries.filter(entry => entry.data().name === input)[0]
-        .id;
-    else return "0";
-  }
-  if (props.disabled) return <></>;
+  const inputRef = useRef(null);
 
   return (
     <div className={classes.listItemWrapper}>
       <div className={classes.name}>
         <OutlinedInput
-          placeholder={input}
+          onClick={() => {
+            if (input.length <= 0) inputRef.current.value = "";
+          }}
           onChange={() => setInput(event.target.value)}
           className={classes.nameInput}
+          defaultValue="Enter name"
+          inputRef={inputRef}
         />
 
         <IconButton
-          disabled={props.disabled}
+          color="primary"
           className={classes.icon}
           onClick={() => setScore(score - 1)}
         >
           <RemoveIcon fontSize="inherit" />
         </IconButton>
         <OutlinedInput
-          placeholder={score}
           className={classes.scoreField}
           type="number"
           value={score}
           onChange={() => setScore(parseInt(event.target.value))}
         />
         <IconButton
+          color="primary"
           className={classes.icon}
           onClick={() => {
             setScore(score + 1);
@@ -91,11 +85,13 @@ const AddPerson = props => {
         </IconButton>
       </div>
       <Button
+        disabled={input.length <= 0}
         className={classes.addButton}
         onClick={() => {
           setScore(0);
           setInput("");
-          props.onSubmit(getId(input), input, score);
+          inputRef.current.value = "";
+          props.onSubmit(input, score);
         }}
         variant="contained"
         size="large"

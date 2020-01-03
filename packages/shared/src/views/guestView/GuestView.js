@@ -1,10 +1,7 @@
 import React from "react";
+import { Paper, makeStyles, Container } from "@material-ui/core";
 import HeaderContainer from "shared/src/components/header/HeaderContainer";
 import ListElementContainer from "shared/src/components/listElement/ListElementContainer";
-import AddPersonContainer from "shared/src/components/addPerson/AddPersonContainer";
-import SignInMask from "shared/src/components/signInMask/SignInMask";
-import { Paper, makeStyles, Container } from "@material-ui/core";
-import ShareScoreboardContainer from "shared/src/components/shareScoreboard/ShareScoreboardContainer";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -46,23 +43,24 @@ const createData = (name, score) => {
   return { name, score };
 };
 
-const ScoreTable = props => {
+const GuestView = props => {
   const classes = useStyles();
   const rows = [];
   props.scores.map(entry => rows.push(createData(entry.name, entry.score)));
 
   const mainContent = () => {
-    console.log(window.location.pathname);
     if (props.withSigninMask) return <SignInMask />;
     else
       return (
         <>
           {rows.map((row, index) => (
             <ListElementContainer
+              isInGuestView
               index={trophies(index)}
               name={row.name}
               score={row.score}
               variant="h3"
+              key={index}
             />
           ))}
         </>
@@ -71,16 +69,13 @@ const ScoreTable = props => {
 
   return (
     <Paper className={classes.paper}>
-      <HeaderContainer />
-      <Container className={classes.list}>
-        {mainContent()}
-        <ShareScoreboardContainer />
-      </Container>
-      <Container className={classes.addPerson} maxWidth="md">
-        <AddPersonContainer />
-      </Container>
+      <HeaderContainer
+        isInGuestView
+        nameOfCurrentlyViewedBoard={props.nameOfCurrentlyViewedBoard}
+      />
+      <Container className={classes.list}>{mainContent()}</Container>
     </Paper>
   );
 };
 
-export default ScoreTable;
+export default GuestView;

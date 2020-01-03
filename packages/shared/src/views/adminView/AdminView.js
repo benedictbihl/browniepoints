@@ -46,13 +46,12 @@ const createData = (name, score) => {
   return { name, score };
 };
 
-const ScoreTable = props => {
+const AdminView = props => {
   const classes = useStyles();
   const rows = [];
   props.scores.map(entry => rows.push(createData(entry.name, entry.score)));
 
   const mainContent = () => {
-    console.log(window.location.pathname);
     if (props.withSigninMask) return <SignInMask />;
     else
       return (
@@ -63,6 +62,7 @@ const ScoreTable = props => {
               name={row.name}
               score={row.score}
               variant="h3"
+              key={index}
             />
           ))}
         </>
@@ -83,4 +83,4 @@ const ScoreTable = props => {
   );
 };
 
-export default ScoreTable;
+export default AdminView;

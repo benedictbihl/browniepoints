@@ -1,20 +1,9 @@
 import React from "react";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { useFirebaseApp } from "reactfire";
 import { Typography, makeStyles } from "@material-ui/core";
 
 import firebase from "firebase";
-
-const uiConfig = {
-  signInFlow: "popup",
-  signInOptions: [
-    firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID
-  ],
-  callbacks: {
-    // Avoid redirects after sign-in.
-    signInSuccessWithAuthResult: () => false
-  }
-};
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -27,7 +16,34 @@ const useStyles = makeStyles(theme => ({
 
 const SignInMask = () => {
   const classes = useStyles();
+  const firebaseApp = useFirebaseApp();
+  const uiConfig = {
+    signInFlow: "popup",
+    signInOptions: [
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID
+    ],
+    callbacks: {
+      // Avoid redirects after sign-in.
+      signInSuccessWithAuthResult: async authResult => {
+        const ref = firebaseApp
+          .firestore()
+          .collection("users")
+          .doc(authResult.user.uid);
 
+        await ref
+          .set({ userName: authResult.user.displayName })
+          .then(function() {
+            console.log("Document successfully written!");
+          })
+          .catch(function(error) {
+            console.error("Error writing document: ", error);
+          });
+        console.log(authResult);
+        false;
+      }
+    }
+  };
   return (
     <div className={classes.wrapper}>
       <Typography variant="h5">

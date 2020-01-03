@@ -41,7 +41,7 @@ const theme = createMuiTheme({
       '"Segoe UI Symbol"'
     ].join(","),
     h2: {
-      fontSize: "2.5rem",
+      fontSize: "2rem",
       "@media (min-width:600px)": {
         fontSize: "4.5rem"
       }

@@ -9,9 +9,9 @@ import {
 import "firebase/firestore";
 import "firebase/auth";
 
-import ScoreTable from "shared/src/components/scoreTable/ScoreTable";
+import AdminView from "shared/src/views/adminView/AdminView";
 
-const ScoreTableContainer = () => {
+const AdminViewContainer = () => {
   const firebaseApp = useFirebaseApp();
   let personsArray = [];
   const user = useUser();
@@ -23,16 +23,13 @@ const ScoreTableContainer = () => {
     .collection("scoreboard")
     .orderBy("score", "desc");
   const persons = useFirestoreCollection(query);
-  const uid = window.location.pathname.substr(1)
-    ? window.location.pathname.substr(1)
-    : "0";
-  persons.forEach(doc => personsArray.push(doc.data()));
+  if (persons) persons.forEach(doc => personsArray.push(doc.data()));
 
   return (
-    <AuthCheck fallback={<ScoreTable scores={personsArray} withSigninMask />}>
-      <ScoreTable scores={personsArray} />
+    <AuthCheck fallback={<AdminView scores={personsArray} withSigninMask />}>
+      <AdminView scores={personsArray} />
     </AuthCheck>
   );
 };
 
-export default ScoreTableContainer;
+export default AdminViewContainer;
