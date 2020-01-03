@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AddPerson = props => {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState("Add someone");
   const [score, setScore] = useState(0);
   const classes = useStyles();
 
@@ -56,25 +56,26 @@ const AddPerson = props => {
         .id;
     else return "0";
   }
+  if (props.disabled) return <></>;
 
   return (
     <div className={classes.listItemWrapper}>
       <div className={classes.name}>
-        <TextField
-          placeholder="Add someone"
-          variant="outlined"
+        <OutlinedInput
+          placeholder={input}
           onChange={() => setInput(event.target.value)}
           className={classes.nameInput}
         />
 
         <IconButton
+          disabled={props.disabled}
           className={classes.icon}
           onClick={() => setScore(score - 1)}
         >
           <RemoveIcon fontSize="inherit" />
         </IconButton>
         <OutlinedInput
-          placeholder={"0"}
+          placeholder={score}
           className={classes.scoreField}
           type="number"
           value={score}
@@ -98,7 +99,7 @@ const AddPerson = props => {
         }}
         variant="contained"
         size="large"
-        color="default"
+        color="primary"
       >
         Add Person
       </Button>

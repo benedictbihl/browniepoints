@@ -26,6 +26,7 @@ const ListElementContainer = props => {
             .collection("persons")
             .add({ name: name, score: addedPoints });
         } else {
+          console.log("swar");
           // doc.data() will be undefined in this case
         }
       })

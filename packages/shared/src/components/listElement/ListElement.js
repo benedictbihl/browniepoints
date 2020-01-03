@@ -69,7 +69,7 @@ const ListElement = props => {
             className={classes.icon}
             onClick={() => toggleEditMode(true)}
           >
-            <EditIcon color="secondary" fontSize="inherit" />
+            <EditIcon color="primary" fontSize="inherit" />
           </IconButton>
           <Typography className={classes.number} variant={props.variant}>
             {props.index}
@@ -94,7 +94,7 @@ const ListElement = props => {
               toggleEditMode(false);
             }}
           >
-            <DoneIcon color="secondary" fontSize="inherit" />
+            <DoneIcon color="primary" fontSize="inherit" />
           </IconButton>
           <OutlinedInput
             className={classes.textfield}
@@ -110,7 +110,7 @@ const ListElement = props => {
               setScore(score - 1);
             }}
           >
-            <RemoveIcon color="secondary" fontSize="inherit" />
+            <RemoveIcon color="primary" fontSize="inherit" />
           </IconButton>
           <OutlinedInput
             className={classes.scoreField}
@@ -124,7 +124,7 @@ const ListElement = props => {
               setScore(score + 1);
             }}
           >
-            <AddIcon color="secondary" fontSize="inherit" />
+            <AddIcon color="primary" fontSize="inherit" />
           </IconButton>
         </div>
       </>

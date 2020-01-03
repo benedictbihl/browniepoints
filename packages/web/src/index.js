@@ -20,10 +20,10 @@ const firebaseConfig = {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#afb42b"
+      main: "#0097a7"
     },
     secondary: {
-      main: "#8ac148"
+      main: "#eeeeee"
     }
   },
   typography: {

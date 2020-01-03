@@ -1,26 +1,53 @@
 import React from "react";
-import { Typography, makeStyles } from "@material-ui/core";
+import { Typography, makeStyles, Button } from "@material-ui/core";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const useStyles = makeStyles(theme => ({
-  h1: {
+  headlineWrapper: {
     backgroundColor: theme.palette.primary.main,
-    paddingBottom: theme.spacing(2)
+    display: "flex",
+    flexFlow: "column-reverse",
+    alignItems: "flex-end"
   },
-  h2: { backgroundColor: theme.palette.secondary.main }
+  subHeadlineWrapper: {
+    backgroundColor: theme.palette.secondary.dark
+  }
 }));
 
-const Header = () => {
+const Header = props => {
   const classes = useStyles();
+  const getUserName = () => {
+    return props.userName ? props.userName.split(" ")[0] + "'s" : "";
+  };
+  const signedInButtonSet = () => {
+    return (
+      <>
+        <Button
+          size="large"
+          color="secondary"
+          className={classes.button}
+          onClick={() => props.signOut()}
+          startIcon={<ExitToAppIcon />}
+        >
+          Logout
+        </Button>
+      </>
+    );
+  };
   return (
-    <div>
-      <Typography className={classes.h1} variant="h2">
-        Brownie Points Tracker 🔥
-      </Typography>
-
-      <Typography className={classes.h2} variant="h3" gutterBottom>
-        Iga's Scoreboard
-      </Typography>
-    </div>
+    <>
+      <div className={classes.headlineWrapper}>
+        <Typography className={classes.h1} variant="h2" gutterBottom>
+          Brownie Points Tracker 🔥
+        </Typography>
+        {props.showSignedInButtonSet && signedInButtonSet()}
+      </div>
+      <div className={classes.subHeadlineWrapper}>
+        <Typography className={classes.h2} variant="h3">
+          {`${getUserName()} Scoreboard`}
+        </Typography>
+      </div>
+    </>
   );
 };
 

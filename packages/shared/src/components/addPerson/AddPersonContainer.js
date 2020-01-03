@@ -1,10 +1,18 @@
 import React from "react";
-import { useFirestoreCollection, useFirebaseApp } from "reactfire";
+import {
+  useFirestoreCollection,
+  useFirebaseApp,
+  useUser,
+  AuthCheck
+} from "reactfire";
 import "firebase/firestore";
+import "firebase/auth";
 
-import AddPoints from "shared/src/components/addPerson/AddPerson";
+import AddPerson from "shared/src/components/addPerson/AddPerson";
 const AddPersonContaier = () => {
   const firebaseApp = useFirebaseApp();
+  const user = useUser();
+
   let query = firebaseApp.firestore().collection("persons");
   const persons = useFirestoreCollection(query, { idField: "id" });
   let personsArray = [];
@@ -34,7 +42,15 @@ const AddPersonContaier = () => {
         console.log("Error getting document:", error);
       });
   };
-  return <AddPoints onSubmit={onSubmit} tableEntries={personsArray} />;
+  return (
+    <AuthCheck
+      fallback={
+        <AddPerson disabled onSubmit={onSubmit} tableEntries={personsArray} />
+      }
+    >
+      <AddPerson onSubmit={onSubmit} tableEntries={personsArray} />
+    </AuthCheck>
+  );
 };
 
 export default AddPersonContaier;

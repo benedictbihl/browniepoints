@@ -1,12 +1,9 @@
 import React from "react";
-import Header from "shared/src/components/header/Header";
+import HeaderContainer from "shared/src/components/header/HeaderContainer";
 import ListElementContainer from "shared/src/components/listElement/ListElementContainer";
 import AddPersonContainer from "shared/src/components/addPerson/AddPersonContainer";
+import SignInMask from "shared/src/components/signInMask/SignInMask";
 import { Paper, makeStyles, Container } from "@material-ui/core";
-
-function createData(name, score) {
-  return { name, score };
-}
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -24,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     overflowY: "auto"
   },
   footer: {
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.dark
   }
 }));
 
@@ -42,22 +39,37 @@ const trophies = index => {
   }
 };
 
+const createData = (name, score) => {
+  return { name, score };
+};
+
 const ScoreTable = props => {
   const classes = useStyles();
   const rows = [];
   props.scores.map(entry => rows.push(createData(entry.name, entry.score)));
+
+  const mainContent = () => {
+    if (props.withSigninMask) return <SignInMask />;
+    else
+      return (
+        <>
+          {rows.map((row, index) => (
+            <ListElementContainer
+              index={trophies(index)}
+              name={row.name}
+              score={row.score}
+              variant="h3"
+            />
+          ))}
+        </>
+      );
+  };
+
   return (
     <Paper className={classes.paper}>
-      <Header />
+      <HeaderContainer />
       <Container className={classes.list} maxWidth="md">
-        {rows.map((row, index) => (
-          <ListElementContainer
-            index={trophies(index)}
-            name={row.name}
-            score={row.score}
-            variant="h3"
-          />
-        ))}
+        {mainContent()}
       </Container>
       <Container className={classes.footer} maxWidth="md">
         <AddPersonContainer />

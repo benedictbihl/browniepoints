@@ -1,18 +1,26 @@
 import React from "react";
-import { useFirestoreCollection, useFirebaseApp } from "reactfire";
+import { useFirestoreCollection, useFirebaseApp, AuthCheck } from "reactfire";
+
 import "firebase/firestore";
+import "firebase/auth";
 
 import ScoreTable from "shared/src/components/scoreTable/ScoreTable";
 
 const ScoreTableContainer = () => {
   const firebaseApp = useFirebaseApp();
-  let query = firebaseApp.firestore().collection("persons");
-  query = query.orderBy("score", "desc");
+  const query = firebaseApp
+    .firestore()
+    .collection("persons")
+    .orderBy("score", "desc");
   const persons = useFirestoreCollection(query, { idField: "id" });
-  let personsArray = [];
+  const personsArray = [];
   persons.forEach(doc => personsArray.push(doc.data()));
 
-  return <ScoreTable scores={personsArray} />;
+  return (
+    <AuthCheck fallback={<ScoreTable scores={personsArray} withSigninMask />}>
+      <ScoreTable scores={personsArray} />
+    </AuthCheck>
+  );
 };
 
 export default ScoreTableContainer;
