@@ -19,11 +19,12 @@ import red from "@material-ui/core/colors/red";
 const useStyles = makeStyles(theme => ({
   score: { display: "flex", alignItems: "center" },
   scoreField: {
-    [theme.breakpoints.up("sm")]: {
-      maxWidth: "72px"
+    [theme.breakpoints.down("md")]: {
+      width: "50px"
     }
   },
-  name: { display: "flex", alignItems: "center" },
+  name: { display: "flex", alignItems: "center", overflow: "hidden" },
+  nameText: { textOverflow: "ellipsis", overflow: "hidden" },
   icon: {
     marginRight: theme.spacing(2),
     fontSize: "2rem",
@@ -110,7 +111,9 @@ const ListElement = props => {
           >
             <DoneIcon color="primary" fontSize="inherit" />
           </IconButton>
-          <Typography variant={props.variant}>{props.name}</Typography>
+          <Typography className={classes.nameText} variant={props.variant}>
+            {props.name}
+          </Typography>
         </div>
         <div className={classes.score}>
           <IconButton

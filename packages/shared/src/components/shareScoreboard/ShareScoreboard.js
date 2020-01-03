@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import CloseIcon from "@material-ui/icons/Close";
 
 import {
   makeStyles,
@@ -8,7 +9,9 @@ import {
   DialogTitle,
   TextField,
   Container,
-  Button
+  Button,
+  Snackbar,
+  IconButton
 } from "@material-ui/core";
 
 import ShareIcon from "@material-ui/icons/Share";
@@ -30,11 +33,18 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     marginTop: theme.spacing(2)
+  },
+  snackbar: {
+    bottom: "25px"
+  },
+  close: {
+    padding: theme.spacing(0.5)
   }
 }));
 
 const ShareScoreboard = props => {
   const [open, setOpen] = useState(false);
+  const [toast, showToast] = useState(false);
   const classes = useStyles();
   return (
     <>
@@ -65,6 +75,7 @@ const ShareScoreboard = props => {
           />
           <CopyToClipboard text={props.link}>
             <Button
+              onClick={() => showToast(true)}
               size="large"
               className={classes.button}
               variant="contained"
@@ -75,6 +86,26 @@ const ShareScoreboard = props => {
           </CopyToClipboard>
         </Container>
       </Dialog>
+      <Snackbar
+        className={classes.snackbar}
+        autoHideDuration={2000}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        key={`bottom,center`}
+        open={toast}
+        onClose={() => showToast(false)}
+        message={<span id="message-id">Copied to clipboard</span>}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="close"
+            color="inherit"
+            className={classes.close}
+            onClick={() => showToast(false)}
+          >
+            <CloseIcon />
+          </IconButton>
+        ]}
+      />
     </>
   );
 };
