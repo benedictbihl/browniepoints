@@ -29,7 +29,7 @@ const HeaderContainer = props => {
         }
       >
         <Header
-          userName={user ? user.displayName : ""}
+          userName={props.nameOfCurrentlyViewedBoard}
           signOutButton
           signOut={signOut}
           returnToOwnBoardButton
