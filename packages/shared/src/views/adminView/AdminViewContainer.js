@@ -16,6 +16,7 @@ const AdminViewContainer = () => {
   let personsArray = [];
   const user = useUser();
   const userid = user ? user.uid : "0";
+  console.log(userid);
   const query = firebaseApp
     .firestore()
     .collection("users")
@@ -24,6 +25,7 @@ const AdminViewContainer = () => {
     .orderBy("score", "desc");
   const persons = useFirestoreCollection(query);
   if (persons) persons.forEach(doc => personsArray.push(doc.data()));
+  console.log(persons);
 
   return (
     <AuthCheck fallback={<AdminView scores={personsArray} withSigninMask />}>

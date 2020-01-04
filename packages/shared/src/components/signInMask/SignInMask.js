@@ -23,8 +23,8 @@ const SignInMask = () => {
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
       firebase.auth.GoogleAuthProvider.PROVIDER_ID
     ],
+    signInSuccessUrl: "/",
     callbacks: {
-      // Avoid redirects after sign-in.
       signInSuccessWithAuthResult: async authResult => {
         const ref = firebaseApp
           .firestore()
@@ -39,8 +39,6 @@ const SignInMask = () => {
           .catch(function(error) {
             console.error("Error writing document: ", error);
           });
-        console.log(authResult);
-        false;
       }
     }
   };
