@@ -23,10 +23,10 @@ Progressive Web App powered by react & firebase. Monorepo approach to be able to
 
 ## Platforms
 
-✅Web
+✅ Web
 
-✅PWA
+✅ PWA
 
-❌iOS native
+❌ iOS native
 
-❌Android native
+❌ Android native
