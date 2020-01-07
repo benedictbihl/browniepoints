@@ -10,7 +10,7 @@ const MainViewContainer = () => {
     getUserName();
   }, []);
 
-  const [userName, setUserName] = useState("initialState");
+  const [userName, setUserName] = useState("");
   const firebaseApp = useFirebaseApp();
   let personsArray = [];
   const uid = window.location.pathname.substr(1)

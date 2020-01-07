@@ -17,6 +17,9 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row-reverse"
+  },
+  h1: {
+    margin: theme.spacing(0, 2)
   }
 }));
 

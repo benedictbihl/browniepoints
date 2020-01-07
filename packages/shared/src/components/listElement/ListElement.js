@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   IconButton,
   Typography,
@@ -73,7 +73,9 @@ const ListElement = props => {
   const [editMode, toggleEditMode] = useState(false);
   const [score, setScore] = useState(props.score);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-
+  useEffect(() => {
+    setScore(props.score);
+  }, [props.score]);
   const item = () => {
     return (
       <>
