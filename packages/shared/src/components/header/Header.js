@@ -1,14 +1,15 @@
 import React from "react";
-import { Typography, makeStyles, Button } from "@material-ui/core";
+import { Typography, makeStyles, IconButton } from "@material-ui/core";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
+import HomeIcon from "@material-ui/icons/Home";
 
 const useStyles = makeStyles(theme => ({
   headlineWrapper: {
     backgroundColor: theme.palette.primary.main,
     display: "flex",
-    flexFlow: "column-reverse",
-    alignItems: "stretch"
+    flexFlow: "column",
+    alignItems: "stretch",
+    color: "white"
   },
   subHeadlineWrapper: {
     backgroundColor: theme.palette.secondary.dark
@@ -16,10 +17,16 @@ const useStyles = makeStyles(theme => ({
   buttonSet: {
     display: "flex",
     justifyContent: "space-between",
-    flexDirection: "row-reverse"
   },
   h1: {
-    margin: theme.spacing(0, 2)
+    margin: theme.spacing(0, 2),
+    fontSize: "30px",
+    fontWeight: "500"
+  },
+  h2: {
+    fontSize: "20px",
+    fontWeight: "100",
+    marginBottom: "25px"
   }
 }));
 
@@ -31,15 +38,14 @@ const Header = props => {
   const signOutButton = () => {
     return (
       <>
-        <Button
+        <IconButton
           size="large"
           color="secondary"
           className={classes.button}
           onClick={() => props.signOut()}
-          startIcon={<ExitToAppIcon />}
         >
-          Logout
-        </Button>
+          <ExitToAppIcon />
+        </IconButton>
       </>
     );
   };
@@ -47,31 +53,27 @@ const Header = props => {
   const returnToOwnBoardButton = () => {
     return (
       <>
-        <Button
+        <IconButton
           href="/"
           size="large"
           color="secondary"
           className={classes.button}
           onClick={() => {}}
-          startIcon={<KeyboardReturnIcon />}
-        >
-          Return to your Board
-        </Button>
+        ><HomeIcon />
+        </IconButton>
       </>
     );
   };
   return (
     <>
       <div className={classes.headlineWrapper}>
-        <Typography className={classes.h1} variant="h2" gutterBottom>
-          Brownie Points Tracker 🔥
-        </Typography>
         <div className={classes.buttonSet}>
-          {props.signOutButton && signOutButton()}
           {props.returnToOwnBoardButton && returnToOwnBoardButton()}
+          {props.signOutButton && signOutButton()}
         </div>
-      </div>
-      <div className={classes.subHeadlineWrapper}>
+        <Typography className={classes.h1} variant="h2" gutterBottom>
+          Brownie Points
+        </Typography>
         <Typography className={classes.h2} variant="h3">
           {`${getUserName()} Scoreboard`}
         </Typography>

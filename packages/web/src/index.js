@@ -20,7 +20,7 @@ const firebaseConfig = {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#0097a7"
+      main: "#00555E"
     },
     secondary: {
       main: "#eeeeee"
@@ -28,7 +28,7 @@ const theme = createMuiTheme({
   },
   typography: {
     fontFamily: [
-      "PT Mono",
+      "Roboto",
       "-apple-system",
       "BlinkMacSystemFont",
       '"Segoe UI"',
@@ -47,10 +47,8 @@ const theme = createMuiTheme({
       }
     },
     h3: {
-      fontSize: "1.5rem",
-      "@media (min-width:600px)": {
-        fontSize: "3.5rem"
-      }
+      fontSize: "1rem",
+      fontWeight: "500",
     }
   }
 });
