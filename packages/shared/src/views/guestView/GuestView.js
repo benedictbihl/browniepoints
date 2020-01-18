@@ -17,25 +17,56 @@ const useStyles = makeStyles(theme => ({
   },
   list: {
     flex: "1",
-    overflowY: "auto"
+    overflowY: "auto",
+    marginTop: "20px",
   },
   addPerson: {
     backgroundColor: theme.palette.secondary.dark
   },
-  share: {}
+  share: {},
+  first: {
+    color: "white",
+    background: "#E2AA00",
+    borderRadius: "50%",
+    width: "21px",
+    height: "21px",
+    lineHeight: "21px",
+  },
+  second: {
+    color: "white",
+    background: "#B6B6B6",
+    borderRadius: "50%",
+    width: "21px",
+    height: "21px",
+    lineHeight: "21px"
+  },
+  third: {
+    color: "white",
+    background: "#9E501C",
+    borderRadius: "50%",
+    width: "21px",
+    height: "21px",
+    lineHeight: "21px"
+  },
+  further: {
+    borderRadius: "50%",
+    width: "21px",
+    height: "21px",
+    lineHeight: "21px"
+  },
 }));
 
-const trophies = index => {
+const trophies = (classes, index) => {
   switch (index) {
     case 0:
-      return "🥇";
+      return <div className={classes.first}>{ index + 1 }</div>;
     case 1:
-      return "🥈";
+      return <div className={classes.second}>{ index + 1 }</div>;
     case 2:
-      return "🥉";
+      return <div className={classes.third}>{ index + 1 }</div>;
 
     default:
-      return index + 1 + ".";
+      return <div className={classes.further}>{ index + 1 }</div>;
   }
 };
 
@@ -56,7 +87,7 @@ const GuestView = props => {
           {rows.map((row, index) => (
             <ListElementContainer
               isInGuestView
-              index={trophies(index)}
+              index={trophies(classes, index)}
               name={row.name}
               score={row.score}
               variant="h3"

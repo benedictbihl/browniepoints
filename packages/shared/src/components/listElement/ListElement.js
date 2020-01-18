@@ -17,14 +17,39 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import red from "@material-ui/core/colors/red";
 
 const useStyles = makeStyles(theme => ({
-  score: { display: "flex", alignItems: "center" },
+  score: {
+    display: "flex",
+    alignItems: "center",
+    fontSize: "11px",
+  },
   scoreField: {
     [theme.breakpoints.down("md")]: {
       width: "50px"
     }
   },
-  name: { display: "flex", alignItems: "center", overflow: "hidden" },
-  nameText: { textOverflow: "ellipsis", overflow: "hidden" },
+  dot: {
+    background: "#FAB715",
+    borderRadius: "50%",
+    width: "5px",
+    height: "5px",
+    marginLeft: "3px",
+  },
+  profileImage: {
+    borderRadius: "50%",
+    height: "36px",
+    width: "36px",
+    marginRight: "15px",
+  },
+  name: {
+    display: "flex",
+    alignItems: "center",
+    overflow: "hidden",
+    fontSize: "16px",
+  },
+  nameText: {
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+  },
   icon: {
     marginRight: theme.spacing(2),
     fontSize: "2rem",
@@ -40,10 +65,13 @@ const useStyles = makeStyles(theme => ({
     color: red[700]
   },
   number: {
+    fontSize: "11px",
+    color: "grey",
     marginRight: theme.spacing(2),
     [theme.breakpoints.down("sm")]: {
       margin: "0"
-    }
+    },
+    width: "30px"
   },
   textfield: {
     maxWidth: "50%"
@@ -54,7 +82,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-between",
     padding: theme.spacing(2, 0),
     [theme.breakpoints.down("sm")]: {
-      padding: theme.spacing(1, 0)
+      padding: theme.spacing(1.5, 0)
     }
   },
   wrapper: {
@@ -65,7 +93,7 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     marginTop: theme.spacing(2)
-  }
+  },
 }));
 
 const ListElement = props => {
@@ -88,13 +116,16 @@ const ListElement = props => {
               <EditIcon color="primary" fontSize="inherit" />
             </IconButton>
           )}
-          <Typography className={classes.number} variant={props.variant}>
+          <Typography className={classes.number}>
             {props.index}
           </Typography>
+          {/* Use unique profile image, identified by name. */}
+          <img className={classes.profileImage} src={`https://api.adorable.io/avatars/150/${props.name}.png`}/>
           <Typography variant={props.variant}>{props.name}</Typography>
         </div>
         <div className={classes.score}>
           <Typography variant={props.variant}>{props.score}</Typography>
+          <div className={classes.dot}></div>
         </div>
       </>
     );
